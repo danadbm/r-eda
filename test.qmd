@@ -1,0 +1,90 @@
+---
+title: "R Exploratory Data Analysis"
+author: DAPT 621 Intro to R
+format: html
+toc: true
+toc-location: left
+theme: pulse
+editor: visual
+---
+
+## Business Scenario
+
+Suppose you are a data consultant recently hired by Company ABC, a mid-size company with 119 employees, to advise on global compensation for analytics positions throughout the company. Currently, the company has three offices: one in Columbus, Ohio, one in Toronto, Canada, and another in Munich, Germany and is shifting from a partially remote set-up to a fully remote one. Company ABC was able to obtain a listing of 607 salaries over 3 years on various technical positions from around the world to use as a benchmark and would like to understand what salaries look like in different locations.
+
+## Data Overview
+
+| Column             | Description                                                                                                                                                                                    |
+|-------------|-----------------------------------------------------------|
+| work_year          | The year the salary was paid.                                                                                                                                                                  |
+| experience_level   | The experience level in the job during the year with the following possible values: EN Entry-level / Junior MI Mid-level / Intermediate SE Senior-level / Expert EX Executive-level / Director |
+| employment_type    | The type of employment for the role: PT Part-time FT Full-time CT Contract FL Freelance                                                                                                        |
+| job_title          | The role worked in during the year.                                                                                                                                                            |
+| salary             | The total gross salary amount paid.                                                                                                                                                            |
+| salary_currency    | The currency of the salary paid as an ISO 4217 currency code.                                                                                                                                  |
+| salary*in*usd      | The salary in USD (FX rate divided by avg. USD rate for the respective year via fxdata.foorilla.com).                                                                                          |
+| employee_residence | Employee's primary country of residence in during the work year as an ISO 3166 country code.                                                                                                   |
+| remote_ratio       | The overall amount of work done remotely, possible values are as follows: 0 No remote work (less than 20%) 50 Partially remote 100 Fully remote (more than 80%)                                |
+| company_location   | The country of the employer's main office or contracting branch as an ISO 3166 country code.                                                                                                   |
+| company_size       | The average number of people that worked for the company during the year: S less than 50 employees (small) M 50 to 250 employees (medium) L more than 250 employees (large)                    |
+
+## Read CSV Data into R
+
+### read.csv
+
+`read.csv` is a base R package (or actually a wrapper around the `read.table` package) specific for reading in comma delimited files. Remember, you can always type `?` before the function to see the function's description and usage.
+
+``` r
+?read.csv
+```
+
+Let's read in our sample data *ds_salaries.csv* and take a look at the first 5 rows using the `head()` function.
+
+```{r}
+filename <- 'ds_salaries.csv'
+sal <- read.csv(filename)
+```
+
+### head
+
+Notice that 5 rows are returned if no number of rows is specified. Try `head(sal, 10)` to see the first 10 rows.
+
+```{r}
+head(sal)
+```
+
+### tail
+
+Check the last 5 rows of the data with the `tail()` function.
+
+```{r}
+tail(sal)
+```
+
+## Explore the data frame
+
+### str
+
+Check the structure of our data object with the `str` function.
+
+```{r}
+str(sal)
+```
+
+### dim, ncol, nrow
+
+For a quick return of the dimensions, `dim`, `ncol`, and `nrow` can be used on the data frame.
+
+```{r}
+dim(sal)
+ncol(sal)
+nrow(sal)
+```
+
+### summary
+
+Use the `summary` function to see summary statistics for each column.
+
+```{r}
+summary(sal)
+```
